@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  web:
+    build:
+      context: .
+      target: web-dev
+    command: yarn dev
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web:/web

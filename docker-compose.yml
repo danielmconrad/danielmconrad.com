@@ -3,7 +3,7 @@ version: "3.7"
 services:
   web:
     build:
-      context: .
+      context: web
       target: web-dev
     command: yarn dev
     tty: true

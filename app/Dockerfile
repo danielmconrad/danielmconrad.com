@@ -1,25 +1,25 @@
-ARG NODE_VERSION=18.2
+ARG NODE_VERSION=18.7
+ARG NPM_VERSION=8.16.0
 
 # Dev
 # ------------------------------------------------------------------------------
-FROM node:${NODE_VERSION}-alpine as web-dev
+FROM node:${NODE_VERSION}-alpine as app-dev
 
-WORKDIR /web
-
-ENV PATH="/node_modules/.bin:${PATH}"
-ENV NPM_CONFIG_PREFIX="/node_modules"
+WORKDIR /app
 
 RUN apk update && apk upgrade && apk add --update \
   g++ make
 
-COPY package.json .yarnrc yarn.lock ./
+RUN npm install -g npm@${NPM_VERSION}
 
-RUN yarn install &> /dev/null
+# COPY package.json .yarnrc yarn.lock ./
+
+# RUN yarn install --modules-folder /node_modules &> /dev/null
 
 
 # Build
 # ------------------------------------------------------------------------------
-FROM web-dev as web-build
+FROM app-dev as app-build
 
 COPY . .
 

@@ -1,13 +1,13 @@
 version: "3.7"
 
 services:
-  web:
+  app:
     build:
-      context: web
-      target: web-dev
-    command: yarn dev
+      context: app
+      target: app-dev
+    command: npm run dev
     tty: true
     ports:
-      - 3000:3000
+      - 5173:5173
     volumes:
-      - ./web:/web
+      - ./app:/app

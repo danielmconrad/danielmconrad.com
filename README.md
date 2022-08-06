@@ -19,7 +19,6 @@
 
 - Docker
 
-
 ## Install
 
 ```sh
@@ -40,11 +39,9 @@ make help
 make deploy
 ```
 
-
 ## Maintainers
 
 [@danielmconrad](https://github.com/danielmconrad)
-
 
 ## License
 

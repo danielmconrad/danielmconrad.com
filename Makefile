@@ -16,8 +16,8 @@ help:
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Installation Actions
 
-build: ## Builds local docker images
-	@docker-compose build $${CONTAINER}
+install: ## Fully prepares a local development environment
+	@docker-compose build
 
 down: ## Downs all possible docker containers
 	@docker-compose down
@@ -25,26 +25,23 @@ down: ## Downs all possible docker containers
 stop: ## Stops all possible docker containers
 	@docker-compose stop
 
-install: ## Fully prepares a local development environment
-	@docker-compose run --rm web
-
-
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Development Actions
 
-dev: ## Runs a dev environment
+dev: ## Runs a development environment
 	@docker-compose up
 
-
-##----------------------------------------------------------------------------------------------------------------------
-##@ Formatting Actions
-
 format: ## Formats all code
-	@docker-compose run --rm web yarn format
+	@docker-compose run --rm app npm run format
 
+shell: build ## Opens a shell into the app container
+	@docker-compose run --rm app sh
 
 ##----------------------------------------------------------------------------------------------------------------------
-##@ Shell, Console, and Prompt Actions
+##@ Build & Deploy Actions
 
-shell: build ## Opens a shell into the web container
-	@docker-compose run --rm web sh
+build: ## Builds source code into compiled assets
+	@docker-compose run --rm app npm run build
+
+deploy: build ## Deploys compiled assets
+	@echo deploy

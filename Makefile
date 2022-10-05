@@ -19,6 +19,9 @@ help:
 install: ## Fully prepares a local development environment
 	@docker-compose build
 
+build: ## Builds source code into compiled assets
+	@docker-compose build
+
 down: ## Downs all possible docker containers
 	@docker-compose down
 
@@ -32,7 +35,7 @@ dev: ## Runs a development environment
 	@docker-compose up
 
 format: ## Formats all code
-	@docker-compose run --rm app npm run format
+	@docker-compose run --rm app sh -c "npm run format"
 
 shell: build ## Opens a shell into the app container
 	@docker-compose run --rm app sh
@@ -40,10 +43,10 @@ shell: build ## Opens a shell into the app container
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Build & Deploy Actions
 
-build: ## Builds source code into compiled assets
-	@docker-compose run --rm app npm run build
+predeploy:
+	@docker-compose run --rm app sh -c "npm run build"
 
-deploy: build ## Deploys compiled assets
+deploy: predeploy ## Deploys compiled assets
 	@git switch --orphan gh-pages && \
 		ls | grep -v app | xargs rm -rf && \
 		mv app/dist/* ./ && \

@@ -1,7 +1,7 @@
 ARG NODE_VERSION=18.7
 ARG NPM_VERSION=8.16.0
 
-FROM node:${NODE_VERSION}-alpine as app-dev
+FROM node:${NODE_VERSION}-alpine AS dev
 
 WORKDIR /app
 
@@ -10,5 +10,6 @@ RUN apk update && apk upgrade && apk add --update \
 
 RUN npm install -g npm@${NPM_VERSION}
 
-COPY package.json package-lock.json ./
-RUN npm install
+COPY app/package.json app/yarn.lock app/.yarnrc ./
+
+RUN yarn install

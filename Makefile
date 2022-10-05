@@ -37,13 +37,13 @@ dev: ## Runs a development environment
 format: ## Formats all code
 	@docker-compose run --rm app sh -c "npm run format"
 
-shell: build ## Opens a shell into the app container
+shell: ## Opens a shell into the app container
 	@docker-compose run --rm app sh
 
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Build & Deploy Actions
 
-predeploy: build
+predeploy:
 	@docker-compose run --rm app sh -c "npm run build"
 
 deploy: predeploy ## Deploys compiled assets

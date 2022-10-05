@@ -43,11 +43,12 @@ shell: build ## Opens a shell into the app container
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Build & Deploy Actions
 
-predeploy:
+predeploy: build
 	@docker-compose run --rm app sh -c "npm run build"
 
 deploy: predeploy ## Deploys compiled assets
-	@git switch --orphan gh-pages && \
+	@git branch -D gh-pages &>/dev/null && \
+		git switch --orphan gh-pages && \
 		ls | grep -v app | xargs rm -rf && \
 		mv app/dist/* ./ && \
 		rm -rf app && \

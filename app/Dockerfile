@@ -11,4 +11,4 @@ RUN apk update && apk upgrade && apk add --update \
 RUN npm install -g npm@${NPM_VERSION}
 
 COPY package.json package-lock.json ./
-RUN npm install &> /dev/null
+RUN npm install

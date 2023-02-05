@@ -47,15 +47,15 @@ predeploy:
 	@docker-compose run --rm app sh -c "npm run build"
 
 deploy: predeploy ## Deploys compiled assets
-	@sh -c "git stash && \
-		git branch -D gh-pages &>/dev/null && \
-		git switch --orphan gh-pages && \
-		ls | grep -v -e app -e '.git' | xargs rm -rf && \
-		mv app/dist/* ./ && \
-		rm -rf app && \
-		git add . && \
-		git commit -am 'Deploy' && \
-		git push -fu origin gh-pages && \
-		git checkout main && \
-		git fetch && \
-		git reset --hard origin/main"
+	git stash
+	git branch -D gh-pages &>/dev/null
+	git switch --orphan gh-pages
+	ls | grep -v -e app -e '.git' | xargs rm -rf
+	mv app/dist/* ./
+	rm -rf app
+	git add .
+	git commit -am 'Deploy'
+	git push -fu origin gh-pages
+	git checkout main
+	git fetch
+	git reset --hard origin/main"

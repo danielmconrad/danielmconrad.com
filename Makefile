@@ -22,22 +22,22 @@ install: ## Fully prepares a local development environment
 build: ## Builds source code into compiled assets
 	@docker-compose build
 
-down: ## Downs all possible docker containers
-	@docker-compose down
-
-stop: ## Stops all possible docker containers
-	@docker-compose stop
-
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Development Actions
 
-dev: ## Runs a development environment
+dev-up: ## Runs a development environment
 	@docker-compose up
 
-format: ## Formats all code
+dev-down: ## Downs all possible docker containers
+	@docker-compose down
+
+dev-stop: ## Stops all possible docker containers
+	@docker-compose stop
+
+dev-format: ## Formats all code
 	@docker-compose run --rm app sh -c "npm run format"
 
-shell: ## Opens a shell into the app container
+dev-shell: ## Opens a shell into the app container
 	@docker-compose run --rm app sh
 
 ##----------------------------------------------------------------------------------------------------------------------

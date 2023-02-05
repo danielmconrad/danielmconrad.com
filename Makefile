@@ -49,12 +49,13 @@ predeploy:
 deploy: ## Deploys compiled assets
 	echo 'Deploying requires a sudoer password' && sudo echo ''
 	make predeploy
+	sudo chown -R $${USER} app
 	git stash
 	git branch -D gh-pages &> /dev/null
 	git checkout --orphan gh-pages
 	ls | grep -v -e app -e '.git' | xargs rm -rf
-	sudo mv app/dist/* ./
-	sudo rm -rf app
+	mv app/dist/* ./
+	rm -rf app
 	git add .
 	git commit -am 'Deploy'
 	git push -fu origin gh-pages

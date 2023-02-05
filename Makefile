@@ -48,8 +48,8 @@ predeploy:
 
 deploy: predeploy ## Deploys compiled assets
 	git stash
-	git branch -D gh-pages &>/dev/null
-	git switch --orphan gh-pages
+	git branch -D gh-pages &> /dev/null
+	git checkout --orphan gh-pages
 	ls | grep -v -e app -e '.git' | xargs rm -rf
 	mv app/dist/* ./
 	rm -rf app

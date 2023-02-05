@@ -21,6 +21,9 @@ install: ## Fully prepares a local development environment
 
 build: ## Builds source code into compiled assets
 	@docker-compose run --rm app sh -c "npm run build"
+	@sudo chown -R $${USER} app
+	@cp app/dist/index.html app/dist/resume.html
+	@cp app/dist/index.html app/dist/cv.html
 
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Development Actions

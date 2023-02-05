@@ -39,22 +39,3 @@ dev-format: ## Formats all code
 
 dev-shell: ## Opens a shell into the app container
 	@docker-compose run --rm app sh
-
-##----------------------------------------------------------------------------------------------------------------------
-##@ Build & Deploy Actions
-
-deploy: ## Deploys compiled assets
-	echo 'Deploying requires a sudoer password' && sudo echo ''
-	make build
-	sudo chown -R $${USER} .
-	git stash
-	sh -c "git branch -D gh-pages &> /dev/null" && git checkout --orphan gh-pages
-	ls | grep -v -e app -e '.git' | xargs rm -rf
-	mv app/dist/* ./
-	rm -rf app
-	git add .
-	git commit -am 'Deploy'
-	git push -fu origin gh-pages
-	git checkout main
-	git fetch
-	git reset --hard origin/main

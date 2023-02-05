@@ -46,14 +46,15 @@ dev-shell: ## Opens a shell into the app container
 predeploy:
 	@docker-compose run --rm app sh -c "npm run build"
 
-deploy: predeploy ## Deploys compiled assets
+deploy: ## Deploys compiled assets
+	echo 'Deploying requires a sudoer password' && sudo echo ''
+	make predeploy
 	git stash
 	git branch -D gh-pages &> /dev/null
 	git checkout --orphan gh-pages
 	ls | grep -v -e app -e '.git' | xargs rm -rf
-	sudo chown -R $${USER} app/dist
-	mv app/dist/* ./
-	rm -rf app
+	sudo mv app/dist/* ./
+	sudo rm -rf app
 	git add .
 	git commit -am 'Deploy'
 	git push -fu origin gh-pages

@@ -4,7 +4,7 @@
 
 <Navigation />
 
-<p>Home Page</p>
+<p>Home Page (latest)</p>
 
 <!-- <style>
   @keyframes :local(fadeInHeader) {

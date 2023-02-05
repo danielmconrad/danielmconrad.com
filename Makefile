@@ -20,7 +20,7 @@ install: ## Fully prepares a local development environment
 	@docker-compose build
 
 build: ## Builds source code into compiled assets
-	@docker-compose build
+	@docker-compose run --rm app sh -c "npm run build"
 
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Development Actions
@@ -43,12 +43,9 @@ dev-shell: ## Opens a shell into the app container
 ##----------------------------------------------------------------------------------------------------------------------
 ##@ Build & Deploy Actions
 
-predeploy:
-	@docker-compose run --rm app sh -c "npm run build"
-
 deploy: ## Deploys compiled assets
 	echo 'Deploying requires a sudoer password' && sudo echo ''
-	make predeploy
+	make build
 	sudo chown -R $${USER} .
 	git stash
 	sh -c "git branch -D gh-pages &> /dev/null" && git checkout --orphan gh-pages

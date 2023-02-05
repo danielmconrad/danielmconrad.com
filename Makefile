@@ -51,8 +51,7 @@ deploy: ## Deploys compiled assets
 	make predeploy
 	sudo chown -R $${USER} .
 	git stash
-	git branch -D gh-pages &> /dev/null
-	git checkout --orphan gh-pages
+	sh -c "git branch -D gh-pages &> /dev/null" && git checkout --orphan gh-pages
 	ls | grep -v -e app -e '.git' | xargs rm -rf
 	mv app/dist/* ./
 	rm -rf app

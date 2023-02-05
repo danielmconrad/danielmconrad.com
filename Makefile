@@ -50,11 +50,12 @@ deploy: predeploy ## Deploys compiled assets
 	@sh -c "git stash && \
 		git branch -D gh-pages &>/dev/null && \
 		git switch --orphan gh-pages && \
-		ls | grep -v app | xargs rm -rf && \
+		ls | grep -v -e app -e '.git' | xargs rm -rf && \
 		mv app/dist/* ./ && \
 		rm -rf app && \
 		git add . && \
 		git commit -am 'Deploy' && \
 		git push -fu origin gh-pages && \
-		ls | grep -v '.git' | xargs rm -rf && \
-		git checkout main"
+		git checkout main && \
+		git fetch && \
+		git reset --hard origin/main"

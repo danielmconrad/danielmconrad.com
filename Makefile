@@ -51,6 +51,7 @@ deploy: predeploy ## Deploys compiled assets
 	git branch -D gh-pages &> /dev/null
 	git checkout --orphan gh-pages
 	ls | grep -v -e app -e '.git' | xargs rm -rf
+	sudo chown -R $${USER} app/dist
 	mv app/dist/* ./
 	rm -rf app
 	git add .
@@ -58,4 +59,4 @@ deploy: predeploy ## Deploys compiled assets
 	git push -fu origin gh-pages
 	git checkout main
 	git fetch
-	git reset --hard origin/main"
+	git reset --hard origin/main
